@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horario de Almuerzo Escolar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #00f2ff2a; /* Fondo azul claro */
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: linear-gradient(rgba(173, 216, 230, 0.5), rgba(173, 216, 230, 0.5)), 
+            url("https://img.freepik.com/vetores-premium/desenho-de-desenhos-animados-de-comida-kawaii-desenhado-a-mao_261969-2544.jpg?w=360");
+        }
+
+        .navbar {
+            background-color: #007bff; /* Azul */
+            width: 100%;
+            padding: 20px 0; /* Tamaño de la navbar */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .navbar h2 {
+            text-align: center;
+            color: white;
+            font-size: 28px; /* Tamaño del texto en la navbar */
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .title-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff; /* Azul */
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            font-size: 36px;
+        }
+
+        form {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #007bff; /* Azul */
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: border 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+        }
+
+        input[type="date"]:focus {
+            border-color: #007bff; /* Azul */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        button {
+            background-color: #007bff; /* Azul */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s, transform 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Azul más oscuro */
+            transform: scale(1.05);
+        }
+
+        .info-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin-top: 30px;
+            display: {% if lunch_info %} block {% else %} none {% endif %}; /* Mostrar solo si hay información de almuerzo */
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 0;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 24px;
+            margin: 10px 0;
+            padding: 10px;
+            background: #e0f7fa;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashes {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .flashes li {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8d7da; /* Color de fondo para advertencias */
+            color: #721c24; /* Color de texto para advertencias */
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            form {
+                padding: 20px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // +1 porque getMonth() es 0-11
+            const maxDate = `${year}-${month}-${new Date(year, month, 0).getDate()}`; // Último día del mes actual
+            const minDate = `${year}-${month}-01`; // Primer día del mes actual
+            
+            const dateInput = document.getElementById('date');
+            dateInput.setAttribute('min', minDate);
+            dateInput.setAttribute('max', maxDate);
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <h2>Bienvenido a la Escuela</h2>
+    </div>
+
+    <div class="title-container">
+        <h1>Horario de Almuerzo Escolar</h1>
+    </div>
+
+    <form method="post">
+        <label for="date">Selecciona una fecha:</label>
+        <input type="date" name="date" id="date" required>
+        <button type="submit">Ver Horario</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div class="info-container" style="{% if lunch_info %}display: block;{% endif %}">
+        {% if lunch_info %}
+            <h2>Horario de Almuerzo para {{ selected_day }}:</h2>
+            <p>Horario: {{ lunch_info.time }}</p>
+            <p>Menú: {{ lunch_info.menu }}</p>
+            <img src="{{ url_for('static', filename=lunch_info.image) }}" alt="Menú del día" style="width: 100%; max-width: 400px; border-radius: 10px; margin-top: 10px;">
+        {% endif %}
+    </div>
+</body>
+</html>

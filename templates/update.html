@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Horario de Almuerzo Escolar</title>
+</head>
+<body>
+    <h1>Actualizar Horario de Almuerzo Escolar</h1>
+    <form method="post">
+        <label for="day">Selecciona un día:</label>
+        <select name="day" id="day">
+            {% for day in schedule.keys() %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="time">Horario:</label>
+        <input type="text" name="time" required>
+        <br>
+        <label for="menu">Menú:</label>
+        <input type="text" name="menu" required>
+        <br>
+        <button type="submit">Actualizar</button>
+    </form>
+
+    <h2>Horario Actual</h2>
+    <ul>
+        {% for day, info in schedule.items() %}
+            <li>{{ day }}: {{ info.time }} - {{ info.menu }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

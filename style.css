@@ -1,0 +1,21 @@
+.container {
+    max-width: 800px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 1rem;
+    background-color: #00f2ff2a;    border-color: #000000;
+    justify-items: center;
+    border: solid;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 300px;
+    font-style: normal;
+}
+
+.f1 {
+    color:#e1e1e180
+}
